@@ -1,60 +1,73 @@
 let array = [];
-let backgroundColor = (250, 233, 225);
+//let backgroundColor = (250, 233, 225);
+let strokeWidth = 5;
 
+let noiseOffset = 0.0;
 
 
 function setup() {
-  //createCanvas(600, 600);
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(600, 600);
+  //createCanvas(windowWidth, windowHeight);
   //background(220);
 
 
 
-  // var cnv = createCanvas(600, 600);
-  //   var x = (windowWidth - width) / 2;
-  //   var y = (windowHeight - height) / 2;
-  //   cnv.position(x, y);
+  var cnv = createCanvas(600, 600);
+    var x = (windowWidth - width) / 2;
+    var y = (windowHeight - height) / 2;
+    cnv.position(x, y);
 
-    background(backgroundColor);
+    background(250, 233, 225);
 
-    strokeWeight(10);
+    //strokeWeight(10);
+
     noFill();
 }
 
 function draw() {
 
-  if (mouseIsPressed){
+  background(250, 233, 225, 5);
+  strokeWeight(strokeWidth);
 
-    backgroundColor -= 5;
-    background(backgroundColor);
+  noiseOffset += 0.05;
+  strokeWidth = noise(noiseOffset) * 100;
 
 
-    array.push([mouseX, mouseY]);
+  // if (mouseIsPressed){
+  //
+  //   backgroundColor -= 5;
+  //   background(backgroundColor);
+  //
+  //
+  //   array.push([mouseX, mouseY]);
 
-  // stroke(map(mouseX, 0, 600, 0, 255, true));
-  // line(width - mouseX, height - mouseY, width - pmouseX, height - pmouseY);
-  // line(mouseX, mouseY,pmouseX, pmouseY);
+  stroke(map(mouseX, 0, 600, 0, 255, true));
+  line(width - mouseX, height - mouseY, width - pmouseX, height - pmouseY);
+  line(mouseX, mouseY,pmouseX, pmouseY);
 
-    beginShape();
-    for(let i = 0; i < array.length; i++){
-      //line(array[i][0], array [i][1], array[i + 1][0], array[i + 1][1]);
-      curveVertex(array[i][0], array [i][1]);
-
-        }
-    endShape();
+    // beginShape();
+    // for(let i = 0; i < array.length; i++){
+    //   //line(array[i][0], array [i][1], array[i + 1][0], array[i + 1][1]);
+    //   curveVertex(array[i][0], array [i][1]);
+    //
+    //     }
+    // endShape();
 
   }
-}
+//}
 
 function keyTyped(){
 
   if (key === 's'){
     //save this image
     saveCanvas('fileName', 'png');
-  } else if(key === 'd'){
-    //display image
-    background(250, 233, 225);
+  } else if (key === 'c') {
+    //clear image
+    clear();
 
+  // else if(key === 'd'){
+  //   //display image
+  //   background(250, 233, 225);
     beginShape();
     for(let i = 0; i < array.length; i++){
       //line(array[i][0], array [i][1], array[i + 1][0], array[i + 1][1]);
@@ -65,7 +78,8 @@ function keyTyped(){
     // line(array[1][0], array [1][1], array[2][0], array[2][1]);
   }
   return false;
-}
+    }
+
 
 function mousePressed(){
   array = [];
